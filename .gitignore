@@ -17,6 +17,7 @@ __pycache__/
 # Ignorar archivos de requirements.txt
 requirements.txt
 
-
+# Ignorar archivos de configuración de MongoDB
+config/
 
 
