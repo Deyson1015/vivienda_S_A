@@ -1,0 +1,22 @@
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+
+# Ignorar archivos temporales
+*.env
+
+# Ignorar el directorio de dependencias de Python
+venv/
+
+# Ignorar el directorio donde esta el dataset
+dataset/
+
+# Ignorar archivos de caché de Python
+__pycache__/
+
+# Ignorar archivos de requirements.txt
+requirements.txt
+
+
+
+
