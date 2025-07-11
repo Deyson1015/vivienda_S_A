@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuraciones de conexión a la base de datos
-MONGO_URL = os.getenv('MONGO_URL')  # URI de conexión por defecto si no se encuentra en .env
-DB_NAME = os.getenv('DB_NAME')  # Nombre de la base de datos
-COLLECTION_NAME = os.getenv('COLLECTION_NAME')  # Nombre de la colección
-COLLECTION_NAME_2 = os.getenv('COLLECTION_NAME_2')  # Nombre de la segunda colección
+MONGO_URL = os.getenv('MONGO_URL')  
+DB_NAME = os.getenv('DB_NAME')  
+COLLECTION_NAME = os.getenv('COLLECTION_NAME')  
+COLLECTION_NAME_2 = os.getenv('COLLECTION_NAME_2')  
+DATASET_PATH = os.getenv('DATASET_PATH')

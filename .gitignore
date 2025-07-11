@@ -1,23 +1,28 @@
+# Archivos sensibles
+.env
+config/config.py  
 
-# Ignorar archivos de configuración de IDEs
-.vscode/
+# Archivos de datos
+data/*.xlsx
 
-# Ignorar archivos temporales
-*.env
-
-# Ignorar el directorio de dependencias de Python
-venv/
-
-# Ignorar el directorio donde esta el dataset
-dataset/
-
-# Ignorar archivos de caché de Python
+#  Python cache
 __pycache__/
+*.py[cod]
+*.pyo
 
-# Ignorar archivos de requirements.txt
-requirements.txt
+# Entorno virtual
+venv/
+env/
+.venv/
+.env/
 
-# Ignorar archivos de configuración de MongoDB
-config/
+# Archivos de instalación
+*.egg-info/
+dist/
+build/
 
+#  Archivos de bases de datos temporales
+*.db
 
+# Config de VS Code 
+.vscode/
