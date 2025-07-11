@@ -1,14 +1,17 @@
-from data.conexion import Conexion
+# views/app.py
+from controllers.vivienda_controller import ViviendaController
 
-# Crear una instancia de la conexión
-conexion = Conexion(db_name='viviendas_s_a', collection_name='vivienda')
+def main():
+    controller = ViviendaController()
 
-# Verificar si la conexión fue exitosa
-if conexion.conexion_exitosa:
-    print("Conexión a MongoDB verificada correctamente.")
-else:
-    print("La conexión a MongoDB falló.")
+    # 1. Guardar en MongoDB
+    controller.guardar_datos_en_mongo()
 
+    # 2. Mostrar resumen estadístico
+    controller.mostrar_resumen()
+
+if __name__ == "__main__":
+    main()
 
 
 

@@ -1,30 +1,18 @@
 from pymongo import MongoClient, errors
+from config.config import MONGO_URL, DB_NAME
 
 class Conexion:
-    def __init__(self, db_name, collection_name):
+    def __init__(self):
         try:
-            self.cliente = MongoClient('mongodb://localhost:27017/')  
-            self.db = self.cliente[db_name]
-            self.collection = self.db[collection_name]
-            self.conexion_exitosa = True
-            print(" Conexión exitosa a MongoDB.")
-        
+            self.cliente = MongoClient(MONGO_URL, serverSelectionTimeoutMS=5000)
+            self.db = self.cliente[DB_NAME]
+            # Prueba de conexión
+            self.cliente.server_info()
+            print("Conexión a MongoDB exitosa.")
         except errors.ServerSelectionTimeoutError as e:
-            self.conexion_exitosa = False
-            print("No se pudo conectar a MongoDB. Verifica que el servidor esté en ejecución.")
-            print(f"Error: {e}")
+            print("Error de conexión a MongoDB.")
+            print(f"Detalles: {e}")
+            self.db = None
 
-    def insertar(self, documento):
-        if self.conexion_exitosa:
-            self.collection.insert_one(documento)
-        else:
-            print("No se puede insertar: conexión no establecida.")
-
-    def obtener_viviendas(self):
-        if self.conexion_exitosa:
-            return list(self.collection.find())
-        else:
-            print("No se pueden obtener datos: conexión no establecida.")
-            return []
-
-
+    def obtener_conexion(self):
+        return self.db
