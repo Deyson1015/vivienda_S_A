@@ -8,7 +8,7 @@ class Conexion:
             self.db = self.cliente[DB_NAME]
             # Prueba de conexión
             self.cliente.server_info()
-            print("Conexión a MongoDB exitosa.")
+            print("Conexión a MongoDB exitosa")
         except errors.ServerSelectionTimeoutError as e:
             print("Error de conexión a MongoDB.")
             print(f"Detalles: {e}")

@@ -1,17 +1,11 @@
-# views/app.py
 from controllers.vivienda_controller import ViviendaController
+from controllers.tipo_vivienda_controller import TipoViviendaController
+from controllers.dataset_controller import DatasetController
 
-def main():
-    controller = ViviendaController()
+tv_controller = TipoViviendaController()
+tv_controller.eliminar_tipos() # Elimina tipos
+vc = ViviendaController()
+vc.eliminar_todas_las_viviendas()  # Elimina todo
 
-    # 1. Guardar en MongoDB
-    controller.guardar_datos_en_mongo()
-
-    # 2. Mostrar resumen estadístico
-    controller.mostrar_resumen()
-
-if __name__ == "__main__":
-    main()
-
-
-
+dc = DatasetController()
+dc.importar_viviendas()  # Vuelve a insertar

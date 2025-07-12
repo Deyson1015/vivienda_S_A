@@ -1,18 +1,26 @@
 import pandas as pd
 from models.dataset_model import DatasetModel
-from config.config import EXCEL_DATASET_PATH
+from config.config import DATASET_PATH
 
 class DatasetController:
     def __init__(self):
         self.model = DatasetModel()
 
-    def importar_dataset(self):
+    def importar_viviendas(self):
+    
         try:
-            df = pd.read_excel(EXCEL_DATASET_PATH)
-            datos = df.to_dict(orient="records")
-            resultado = self.model.insertar_viviendas(datos)
-            print(f"{len(resultado)} viviendas insertadas.")
-            return resultado
+            ids_insertados = self.model.insertar_viviendas()
+            print(f"{len(ids_insertados)} viviendas insertadas.")
+            return ids_insertados
         except Exception as e:
-            print(f"Error al importar dataset: {e}")
+            print(f"Error al importar viviendas y tipos: {e}")
             return []
+
+    def contar_viviendas(self):
+        try:
+            total = self.model.contar_viviendas()
+            print(f"Total de viviendas en la colección: {total}")
+            return total
+        except Exception as e:
+            print(f"Error al contar viviendas: {e}")
+            return 0

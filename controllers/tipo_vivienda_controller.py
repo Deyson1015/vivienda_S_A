@@ -1,6 +1,6 @@
 from models.tipo_vivienda_model import TipoViviendaModel
 
-class ViviendaController:
+class TipoViviendaController:
     def __init__(self):
         self.model = TipoViviendaModel()
 
@@ -13,12 +13,11 @@ class ViviendaController:
             print(f" Error al obtener viviendas: {e}")
             return []
 
-    def insertar_tipo_vivienda(self, vivienda):
+    def eliminar_tipos(self):
         try:
-            if isinstance(vivienda, dict):
-                self.model.insertar_viviendas(vivienda)
-                print("Vivienda insertada correctamente.")
-            else:
-                print("La vivienda debe ser un diccionario válido.")
+            eliminados = self.model.eliminar_todo()
+            print(f"Se eliminaron {eliminados} tipo viviendas.")
+            return eliminados
         except Exception as e:
-            print(f" Error al insertar vivienda: {e}")
+            print(f"Error al eliminar viviendas: {e}")
+            return 0
