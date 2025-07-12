@@ -15,12 +15,3 @@ class DatasetController:
         except Exception as e:
             print(f"Error al importar viviendas y tipos: {e}")
             return []
-
-    def contar_viviendas(self):
-        try:
-            total = self.model.contar_viviendas()
-            print(f"Total de viviendas en la colección: {total}")
-            return total
-        except Exception as e:
-            print(f"Error al contar viviendas: {e}")
-            return 0

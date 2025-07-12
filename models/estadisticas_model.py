@@ -3,30 +3,24 @@ from tabulate import tabulate
 from models.base_model import BaseModel
 from models.tipo_vivienda_model import TipoViviendaModel
 from config.config import COLLECTION_NAME
+from utils.data_util import DataUtil
 
-class EstadisticasVivienda:
+class EstadisticasVivienda(BaseModel):
     def __init__(self):
-        self.vivienda_model = BaseModel(COLLECTION_NAME)
-        self.tipo_model = TipoViviendaModel()
+        super().__init__(COLLECTION_NAME)
+        self.model = TipoViviendaModel()
 
     def mostrar_resumen_estadistico(self):
-        viviendas = self.vivienda_model.obtener_viviendas()
-        if not viviendas:
-            print("No hay datos en la colección de viviendas.")
+        viviendas = self.obtener_viviendas()
+        tipos = self.model.obtener_tipos()
+        df = DataUtil.preparar_dataframe(viviendas, tipos)
+
+        if df is None:
             return
-
-        df = pd.DataFrame(viviendas)
-
-        # Calcular estadísticas
+        
         total_viviendas = len(df)
-        df["precio_m2"] = df["precio"] / df["area"]
         promedio_precio_m2 = df["precio_m2"].mean()
-
-        # Obtener nombres de tipos de vivienda por id
-        tipos = self.tipo_model.obtener_tipos()
-        tipo_dict = {str(t["_id"]): t["nombre"] for t in tipos}
-        df["tipo"] = df["id_tipo_vivienda"].astype(str).map(tipo_dict)
-
+        
         # Clasificación por tipo de vivienda
         clasificacion = df["tipo"].value_counts().reset_index()
         clasificacion.columns = ["Tipo de Vivienda", "Cantidad"]
