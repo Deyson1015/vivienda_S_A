@@ -1,5 +1,4 @@
 from models.vivienda_model import ViviendaModel
-
 class ViviendaController:
     def __init__(self):
         self.model = ViviendaModel()
@@ -13,7 +12,7 @@ class ViviendaController:
             print(f" Error al obtener viviendas: {e}")
             return []
 
-    def eliminar_todas_las_viviendas(self):
+    def limpiar_viviendas(self):
         try:
             eliminados = self.model.eliminar_todo()
             print(f"Se eliminaron {eliminados} viviendas.")

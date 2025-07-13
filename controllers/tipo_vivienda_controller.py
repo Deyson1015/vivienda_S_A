@@ -4,19 +4,33 @@ class TipoViviendaController:
     def __init__(self):
         self.model = TipoViviendaModel()
 
-    def obtener_tipo_vivienda(self):
-        try:
-            viviendas = self.model.obtener_viviendas()
-            print(f" Se obtuvieron {len(viviendas)} viviendas.")
-            return viviendas
-        except Exception as e:
-            print(f" Error al obtener viviendas: {e}")
-            return []
+    def insertar_tipo(self, nombre):
+        if not nombre:
+            print("❌ El nombre del tipo de vivienda no puede estar vacío.")
+            return
+        self.model.insertar_tipo_unico(nombre)
+        print(f"Tipo de vivienda '{nombre}' insertado.")
 
-    def eliminar_tipos(self):
+    def obtener_id_tipo(self, nombre):
+        if not nombre:
+            print("El nombre del tipo no puede estar vacío.")
+            return None
+        return self.model.obtener_id(nombre)
+
+    def listar_tipos(self):
+        tipos = self.model.obtener_tipos()
+        if not tipos:
+            print("No hay tipos de vivienda registrados.")
+        else:
+            print("Tipos de vivienda disponibles:")
+            for tipo in tipos:
+                print(f"- {tipo['nombre']}")
+        return tipos
+    
+    def limpiar_tipos(self):
         try:
             eliminados = self.model.eliminar_todo()
-            print(f"Se eliminaron {eliminados} tipo viviendas.")
+            print(f"Se eliminaron {eliminados} tipo de viviendas.")
             return eliminados
         except Exception as e:
             print(f"Error al eliminar viviendas: {e}")

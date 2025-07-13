@@ -2,6 +2,10 @@
 .env
 config/config.py  
 
+# Imágenes y gráficos
+imagenes/
+*.png
+
 # Archivos de datos
 data/*.xlsx
 
