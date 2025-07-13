@@ -5,7 +5,7 @@ class DatasetModel(BaseModel):
     def __init__(self):
         super().__init__(COLLECTION_NAME)
 
-    def insertar_varias_viviendas(self, lista_viviendas):
+    def insertar_viviendas(self, lista_viviendas):
         try:
             if self.collection is None:
                 print("No se pudo obtener la colección de viviendas.")

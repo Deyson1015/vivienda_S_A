@@ -21,4 +21,5 @@ class TipoViviendaModel(BaseModel):
             print(" No se pudo obtener la colección de tipos de vivienda.")
             return []
         return list(self.collection.find())
+    
          

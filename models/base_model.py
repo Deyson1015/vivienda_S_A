@@ -21,7 +21,7 @@ class BaseModel:
             print("No se pudo obtener la colección de viviendas.")
             return []
         return list(self.collection.find())
-
+    
     def eliminar_todo(self):
         if self.collection is None:
             print("No se pudo obtener la colección de viviendas.")
