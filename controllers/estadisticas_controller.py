@@ -30,9 +30,9 @@ class EstadisticasController:
         prediccion = self.regresion_model.predecir(100)
 
         # Mostrar
-        print("📊 RESUMEN ESTADÍSTICO")
-        print(f"\n🏠 Total de viviendas registradas: {total_viviendas}")
-        print(f"💰 Promedio del precio por metro cuadrado: ${promedio_precio_m2:,.2f}")
-        print(f"🔮 Predicción del precio para una vivienda de 100 m²: ${prediccion:,.2f}")
-        print("\n📌 Clasificación por tipo de vivienda:")
+        print(" RESUMEN ESTADÍSTICO")
+        print(f"\n Total de viviendas registradas: {total_viviendas}")
+        print(f" Promedio del precio por metro cuadrado: ${promedio_precio_m2:,.2f}")
+        print(f" Predicción del precio para una vivienda de 100 m²: ${prediccion:,.2f}")
+        print("\n Clasificación por tipo de vivienda:")
         print(tabulate(clasificacion, headers="keys", tablefmt="grid"))

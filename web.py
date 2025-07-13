@@ -10,13 +10,14 @@ def index():
     datos = vc.obtener_viviendas()
     return render_template('viviendas.html', datos=datos)
 
+@app.route('/')
 def grafica():
     datos = vc.obtener_viviendas() 
     return render_template('grafica.html')
 
-def estadisticas():
-    datos = vc.obtener_viviendas()  
-    return render_template('estadisticas.html')
+@app.route('/dispersion')
+def dispersion():
+    return render_template('dispersion.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

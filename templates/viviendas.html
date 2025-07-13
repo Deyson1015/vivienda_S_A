@@ -9,18 +9,18 @@
     <h1>Información de las casas</h1>
      <div style="margin-bottom: 20px;">
         <button onclick="location.href='/resumen'">Ver Grafica</button>
-        <button onclick="location.href='/estadisticas'">Ver estadísticas</button>
+        <button onclick="location.href='/dispersion'">Ver diagrama de dispersion</button>
     </div>
     <table border="1">
         <thead>
             <tr>
                 <th>precio</th>
                 <th>area</th>
-                <th>habitacion</th>
-                <th>fecha creacion</th>
+                <th>habitaciones</th>
                 <th>fecha publicacion</th>
-                <th>tipo de vivienda</th>
                 <th>descripcion</th>
+                <th>fecha_construccion</th>
+                <th>tipo de vivienda</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
                 <td>{{doc['precio'] }}</td>
                 <td>{{doc['area'] }}</td>
                 <td>{{doc['habitaciones'] }}</td>
-                <td>{{doc['antiguedad'] }}</td>
                 <td>{{doc['fecha_publicacion'] }}</td>
-                <td>{{doc['id_tipo_vivienda'] }}</td>
                 <td>{{doc['descripcion'] }}</td>
+                <td>{{doc['fecha_construccion'] }}</td>
+                <td>{{doc['id_tipo_vivienda'] }}</td>
             </tr>
             {% endfor %}
         </tbody>
