@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vivienda S.A</title>
+</head>
+<body>
+    <h1>Información de las casas</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>precio</th>
+                <th>area</th>
+                <th>habitacion</th>
+                <th>fecha creacion</th>
+                <th>fecha publicacion</th>
+                <th>tipo de vivienda</th>
+                <th>descripcion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in datos %}
+            <tr>
+                <td>{{doc['precio'] }}</td>
+                <td>{{doc['area'] }}</td>
+                <td>{{doc['habitaciones'] }}</td>
+                <td>{{doc['antiguedad'] }}</td>
+                <td>{{doc['fecha_publicacion'] }}</td>
+                <td>{{doc['id_tipo_vivienda'] }}</td>
+                <td>{{doc['descripcion'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
