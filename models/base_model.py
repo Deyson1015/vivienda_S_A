@@ -10,24 +10,22 @@ class BaseModel:
             print("No se pudo obtener la colección.")
 
     def insertar_viviendas(self, datos):
-        if self.collection is not None:
-            return self.collection.insert_one(datos).inserted_id
-        else:
-            print("No se pudo insertar.")
-            return None
+        if self.collection is None:
+            print("No se pudo obtener la colección de viviendas.")
+            return []
+        return self.collection.insert_many(datos).inserted_ids
+        
 
     def obtener_viviendas(self):
-        if self.collection is not None:
-            return list(self.collection.find())
-        else:
-            print("No se pudo obtener documentos.")
+        if self.collection is None:
+            print("No se pudo obtener la colección de viviendas.")
             return []
+        return list(self.collection.find())
 
     def eliminar_todo(self):
-        if self.collection is not None:
-            resultado = self.collection.delete_many({})
-            print(f"🗑️ {resultado.deleted_count} documentos eliminados.")
-            return resultado.deleted_count
-        else:
-            print("No se pudo acceder a la colección.")
-            return 0
+        if self.collection is None:
+            print("No se pudo obtener la colección de viviendas.")
+            return False
+        resultado = self.collection.delete_many({})
+        print(f"{resultado.deleted_count} documentos eliminados.")
+        return resultado.deleted_count

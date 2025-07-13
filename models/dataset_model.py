@@ -3,6 +3,7 @@ from models.base_model import BaseModel
 from models.tipo_vivienda_model import TipoViviendaModel
 from config.config import COLLECTION_NAME, DATASET_PATH
 from utils.texto_util import TextoUtil
+from utils.fecha_util import FechaUtil  
 
 class DatasetModel(BaseModel):
     def __init__(self):
@@ -21,10 +22,10 @@ class DatasetModel(BaseModel):
             tipos_unicos = set()
             viviendas_con_tipo = []
 
+            # Clasificar tipos únicos
             for vivienda in viviendas:
                 tipo_detectado = TextoUtil.limpiar_descripcion(vivienda.get("descripcion", ""))
 
-                # Clasificación
                 if tipo_detectado == "apartamento":
                     tipo = "Apartamento"
                 elif tipo_detectado == "casa":
@@ -34,11 +35,11 @@ class DatasetModel(BaseModel):
 
                 tipos_unicos.add(tipo)
 
-            # Insertar tipos únicos en la colección tipo_vivienda
+            # Insertar tipos únicos
             for tipo in tipos_unicos:
                 self.tipo_model.insertar_tipo_unico(tipo)
 
-            # Ahora volvemos a recorrer para insertar viviendas con id_tipo_vivienda
+            # Insertar viviendas con id_tipo_vivienda y fecha_construccion
             for vivienda in viviendas:
                 tipo_detectado = TextoUtil.limpiar_descripcion(vivienda.get("descripcion", ""))
 
@@ -49,8 +50,15 @@ class DatasetModel(BaseModel):
                 else:
                     tipo = "Otro"
 
+                fecha = FechaUtil.calcular_fecha_construccion(vivienda.get("antiguedad"))
+                vivienda["fecha_construccion"] = fecha
+                vivienda.pop("antiguedad", None) 
+
                 id_tipo = self.tipo_model.obtener_id(tipo)
                 vivienda["id_tipo_vivienda"] = id_tipo
+
+                descripcion = str(vivienda.get("descripcion", "")).upper()
+                vivienda["descripcion"] = descripcion
 
                 viviendas_con_tipo.append(vivienda)
 
@@ -59,5 +67,5 @@ class DatasetModel(BaseModel):
             return resultado.inserted_ids
 
         except Exception as e:
-            print(f"Error al insertar viviendas con tipo: {e}")
+            print(f" Error al insertar viviendas con tipo: {e}")
             return []
