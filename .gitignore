@@ -1,18 +1,14 @@
-# Archivos sensibles
-.env
-config/config.py  
-
 # Imágenes y gráficos
-imagenes/
+static/
 *.png
-
-# Archivos de datos
-data/*.xlsx
 
 #  Python cache
 __pycache__/
 *.py[cod]
 *.pyo
+
+# Modelos entrenados
+models/modelo/
 
 # Entorno virtual
 venv/

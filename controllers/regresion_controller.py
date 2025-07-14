@@ -1,29 +1,24 @@
 from models.regresion_model import RegresionModel
-from models.tipo_vivienda_model import TipoViviendaModel
-from models.base_model import BaseModel
-from utils.data_util import DataUtil
-from config.config import COLLECTION_NAME
+from controllers.tipo_vivienda_controller import TipoViviendaController
+from controllers.dataset_controller import DatasetController
 
 class RegresionController:
     def __init__(self):
         self.modelo = RegresionModel()
-        self.base_model = BaseModel(COLLECTION_NAME)
-        self.tipo_model = TipoViviendaModel()
+        self.base_model = DatasetController()
+        self.tipo_model = TipoViviendaController()
 
     def entrenar_modelo(self):
-        try:
-            viviendas = self.base_model.obtener_viviendas()
-            tipos = self.tipo_model.obtener_tipos()
-            
-            df = DataUtil.preparar_dataframe(viviendas, tipos)
-            if df is None:
-                print(" No se pudo preparar el DataFrame.")
-                return
+        df = self.base_model.obtener_dataframe()
+        if df is None:
+            print(" No hay datos disponibles para entrenar el modelo.")
+            return
 
-            X = df[["area"]].values
-            y = df["precio"].values
+        tipos = self.tipo_model.listar_tipos()
+        if not tipos:
+            print(" No hay tipos de vivienda disponibles.")
+            return
 
-            self.modelo.entrenar_modelo(X, y)
-            print("✅ Modelo entrenado y guardado correctamente.")
-        except Exception as e:
-            print(f" Error al entrenar el modelo: {e}")
+        self.modelo.entrenar_modelo(df)
+        print(" Modelo de regresión entrenado exitosamente.")
+        
