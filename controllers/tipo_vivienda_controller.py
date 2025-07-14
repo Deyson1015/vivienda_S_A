@@ -6,7 +6,7 @@ class TipoViviendaController:
 
     def insertar_tipo(self, nombre):
         if not nombre:
-            print("❌ El nombre del tipo de vivienda no puede estar vacío.")
+            print(" El nombre del tipo de vivienda no puede estar vacío.")
             return
         self.model.insertar_tipo_unico(nombre)
         print(f"Tipo de vivienda '{nombre}' insertado.")
@@ -16,6 +16,14 @@ class TipoViviendaController:
             print("El nombre del tipo no puede estar vacío.")
             return None
         return self.model.obtener_id(nombre)
+    
+    def obtener_nombre_tipo(self, nombre):
+        if not nombre:
+            print("El nombre del tipo no puede estar vacío.")
+            return None
+        tipo = self.model.obtener_nombre_tipo(nombre)
+        return tipo["nombre"] if tipo else nombre
+
 
     def listar_tipos(self):
         tipos = self.model.obtener_tipos()

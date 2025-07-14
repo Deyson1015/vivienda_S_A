@@ -1,38 +1,30 @@
-import pandas as pd
-from tabulate import tabulate
 from models.estadisticas_model import EstadisticasViviendaModel
-from models.tipo_vivienda_model import TipoViviendaModel
-from models.regresion_model import RegresionModel
+from controllers.tipo_vivienda_controller import TipoViviendaController
+from controllers.dataset_controller import DatasetController
 from utils.data_util import DataUtil
+from models.regresion_model import RegresionModel 
 
 class EstadisticasController:
     def __init__(self):
         self.vivienda_model = EstadisticasViviendaModel()
-        self.tipo_model = TipoViviendaModel()
+        self.tipo_model = TipoViviendaController()
+        self.model = DatasetController()
         self.regresion_model = RegresionModel()
 
     def mostrar_resumen(self):
-        viviendas = self.vivienda_model.obtener_viviendas()
-        tipos = self.tipo_model.obtener_tipos()
-        df = DataUtil.preparar_dataframe(viviendas, tipos)
+        try:
+            viviendas = self.vivienda_model.obtener_viviendas()
+            if not viviendas:
+                print("No hay datos de viviendas disponibles.")
+                return
 
-        if df is None:
-            print(" No hay datos disponibles.")
-            return
+            tipos = self.tipo_model.listar_tipos()
+            if not tipos:
+                print("No hay tipos de vivienda disponibles.")
+                return
 
-        total_viviendas = len(df)
-        promedio_precio_m2 = df["precio_m2"].mean()
+            df = DataUtil.preparar_dataframe(viviendas, tipos)
+            DataUtil.resumir_estadisticas(df, self.regresion_model)
 
-        clasificacion = df["tipo"].value_counts().reset_index()
-        clasificacion.columns = ["Tipo de Vivienda", "Cantidad"]
-
-        self.regresion_model.cargar_modelo()
-        prediccion = self.regresion_model.predecir(100)
-
-        # Mostrar
-        print("📊 RESUMEN ESTADÍSTICO")
-        print(f"\n🏠 Total de viviendas registradas: {total_viviendas}")
-        print(f"💰 Promedio del precio por metro cuadrado: ${promedio_precio_m2:,.2f}")
-        print(f"🔮 Predicción del precio para una vivienda de 100 m²: ${prediccion:,.2f}")
-        print("\n📌 Clasificación por tipo de vivienda:")
-        print(tabulate(clasificacion, headers="keys", tablefmt="grid"))
+        except Exception as e:
+            print(f"Error al mostrar el resumen de estadísticas: {e}")

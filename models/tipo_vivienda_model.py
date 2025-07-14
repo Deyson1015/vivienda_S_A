@@ -16,10 +16,10 @@ class TipoViviendaModel(BaseModel):
             print(f" Tipo de vivienda '{nombre}' no encontrado.")
         return tipo["_id"] if tipo else None
     
+    def obtener_nombre_tipo(self, nombre):
+        return self.collection.find_one({"nombre": nombre.upper()})
+       
     def obtener_tipos(self):
-        if self.collection is None:
-            print(" No se pudo obtener la colección de tipos de vivienda.")
-            return []
         return list(self.collection.find())
     
          
