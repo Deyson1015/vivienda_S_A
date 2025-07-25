@@ -39,13 +39,11 @@ class DatasetController:
                 except Exception as e:
                     print(f"Error convirtiendo fecha: {fecha}")
                     fecha = None
-                nombre_tipo = self.tipo_model.obtener_nombre_tipo(tipo)
-                id_tipo = self.tipo_model.obtener_id_tipo(tipo)
+                id_tipo = self.tipo_model.obtener_id_tipo_web(tipo)
 
                 vivienda["descripcion"] = str(vivienda.get("descripcion", "")).upper()
                 vivienda["fecha_construccion"] = fecha
                 vivienda.pop("antiguedad", None)
-                vivienda["tipo_vivienda"] = nombre_tipo
                 vivienda["id_tipo_vivienda"] = id_tipo
 
                 viviendas_con_tipo.append(vivienda)
