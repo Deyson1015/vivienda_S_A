@@ -1,8 +1,8 @@
-from models.estadisticas_model import EstadisticasViviendaModel
-from controllers.tipo_vivienda_controller import TipoViviendaController
-from controllers.dataset_controller import DatasetController
-from utils.data_util import DataUtil
-from models.regresion_model import RegresionModel 
+from Backend.models.estadisticas_model import EstadisticasViviendaModel
+from Backend.controllers.tipo_vivienda_controller import TipoViviendaController
+from Backend.controllers.dataset_controller import DatasetController
+from Backend.utils.data_util import DataUtil
+from Backend.models.regresion_model import RegresionModel 
 
 class EstadisticasController:
     def __init__(self):

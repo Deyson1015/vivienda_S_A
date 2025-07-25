@@ -6,8 +6,8 @@ import matplotlib
 matplotlib.use('Agg')
 import seaborn as sns
 
-from models.regresion_model import RegresionModel
-from controllers.dataset_controller import DatasetController
+from Backend.models.regresion_model import RegresionModel
+from Backend.controllers.dataset_controller import DatasetController
 from config.config import IMAGENS_PATH
 
 class DiagramaController:

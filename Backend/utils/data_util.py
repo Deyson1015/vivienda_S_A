@@ -45,15 +45,10 @@ class DataUtil:
         clasificacion = df["tipo"].value_counts().reset_index()
         clasificacion.columns = ["Tipo de Vivienda", "Cantidad"]
 
-        # Predicción usando modelo
-        modelo_regresion.cargar_modelo()
-        prediccion = modelo_regresion.predecir(100)
-
         # Mostrar el resumen
         print("\n📊 RESUMEN ESTADÍSTICO")
         print(f"🏠 Total de viviendas registradas: {total_viviendas}")
         print(f"💰 Promedio del precio por metro cuadrado: ${promedio_precio_m2:,.2f}")
-        print(f"🔮 Predicción del precio para una vivienda de 100 m²: ${prediccion:,.2f}")
         print("\n📌 Clasificación por tipo de vivienda:")
         print(tabulate(clasificacion, headers="keys", tablefmt="grid"))
         

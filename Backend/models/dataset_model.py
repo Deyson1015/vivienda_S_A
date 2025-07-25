@@ -1,4 +1,4 @@
-from models.base_model import BaseModel
+from Backend.models.base_model import BaseModel
 from config.config import COLLECTION_NAME
 
 class DatasetModel(BaseModel):

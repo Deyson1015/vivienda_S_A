@@ -1,4 +1,6 @@
-from models.vivienda_model import ViviendaModel
+from Backend.models.vivienda_model import ViviendaModel
+
+
 class ViviendaController:
     def __init__(self):
         self.model = ViviendaModel()

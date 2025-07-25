@@ -5,8 +5,8 @@ class FileUtil:
 
     def crear_carpetas():
         carpetas = [
-            "static",                  
-            "models/modelo",  
+            "Frontend/static",                  
+            "Backend/models/modelo",  
         ]
 
         for carpeta in carpetas:

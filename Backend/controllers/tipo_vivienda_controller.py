@@ -1,4 +1,4 @@
-from models.tipo_vivienda_model import TipoViviendaModel
+from Backend.models.tipo_vivienda_model import TipoViviendaModel
 
 class TipoViviendaController:
     def __init__(self):

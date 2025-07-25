@@ -1,5 +1,5 @@
 from bson.objectid import ObjectId
-from models.base_model import BaseModel
+from Backend.models.base_model import BaseModel
 from config.config import COLLECTION_NAME_2
 
 class TipoViviendaModel(BaseModel):

@@ -1,4 +1,4 @@
-from data.conexion import Conexion
+from Backend.data.conexion import Conexion
 
 class BaseModel:
     def __init__(self, collection_name):

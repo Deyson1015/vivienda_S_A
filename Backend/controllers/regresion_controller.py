@@ -1,6 +1,6 @@
-from models.regresion_model import RegresionModel
-from controllers.tipo_vivienda_controller import TipoViviendaController
-from controllers.dataset_controller import DatasetController
+from Backend.models.regresion_model import RegresionModel
+from Backend.controllers.tipo_vivienda_controller import TipoViviendaController
+from Backend.controllers.dataset_controller import DatasetController
 
 class RegresionController:
     def __init__(self):
