@@ -1,5 +1,6 @@
 import pickle
 import numpy as np
+import pandas as pd
 from sklearn.linear_model import LinearRegression
 from config.config import MODEL_PATH
 
@@ -24,6 +25,7 @@ class RegresionModel:
                 self.model = pickle.load(f)
         return self.model
 
-    def predecir(self, area):
+    def predecir(self, entrada):
         modelo = self.cargar_modelo()
-        return modelo.predict(np.array([[area]]))[0]
+        return modelo.predict(entrada)
+

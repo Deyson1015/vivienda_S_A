@@ -25,52 +25,46 @@ class RegresionController:
         self.modelo.entrenar_modelo(df)
         print(" Modelo de regresión entrenado exitosamente.")
 
-    def mostrar_formulario_prediccion(self):
-        # Carga la lista de tipos desde MongoDB
-        tipos = self.tipo_model.listar_tipos()
-        return render_template("predicciones.html", tipos_vivienda=tipos)
 
     def procesar_prediccion(self):
         area = request.form.get("area")
-        tipo = request.form.get("tipo_vivienda")
+        habitaciones = request.form.get("habitaciones")
 
-        if not area or not tipo:
+        if not area or not habitaciones:
             return render_template("predicciones.html", error="Por favor complete todos los campos.")
 
         try:
             area = float(area)
+            habitaciones = int(habitaciones)
         except ValueError:
-            return render_template("predicciones.html", error="Área inválida. Debe ser un número.")
+            return render_template("predicciones.html", error="Datos inválidos. Área debe ser número y habitaciones un entero.")
 
+        # Obtener DataFrame
         df = self.base_model.obtener_dataframe()
         if df is None:
             return render_template("predicciones.html", error="No hay datos para predecir.")
 
-        # Filtrar por tipo
-        df_filtrado = df[df['tipo'] == tipo]
+        # Limpiar datos necesarios
+        df_filtrado = df.dropna(subset=['area', 'habitaciones', 'precio'])
 
-        if df_filtrado.empty:
-            return render_template("predicciones.html", error=f"No hay datos para '{tipo}'.")
-
-        # Dividir en X e y
-        X = df_filtrado[['area']]
+        # Preparar X e y
+        X = df_filtrado[['area', 'habitaciones']]
         y = df_filtrado['precio']
 
-        # Entrenar y predecir
-        modelo_temp = RegresionModel()
-        modelo_temp.entrenar_modelo(X, y)
-        
-        input_df = pd.DataFrame([[area]], columns=["area"])
+        # Entrenar el modelo temporal
+        self.modelo.entrenar_modelo(X, y)
 
-        # Realizar la predicción
-        precio_estimado = modelo_temp.predecir(input_df)  
-        
-        precio_formateado = "${:,.0f}".format(precio_estimado).replace(",", ".")
-        
+        # Crear entrada
+        entrada = pd.DataFrame([{'area': area, 'habitaciones': habitaciones}])
+
+        # Predecir
+        prediccion = self.modelo.predecir(entrada)[0]
+        precio_formateado = "${:,.0f}".format(prediccion).replace(",", ".")
+
+
         return render_template(
             "predicciones.html",
-            tipos_vivienda=self.tipo_model.listar_tipos(),
             area=area,
-            tipo_vivienda=tipo,
+            habitaciones=habitaciones,
             prediccion=precio_formateado
         )

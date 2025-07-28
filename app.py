@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request
 # Controladores
 from Backend.controllers.dataset_controller import DatasetController
 from Backend.controllers.diagrama_controller import DiagramaController
@@ -42,13 +41,12 @@ def inicio():
 def dashboard():
     return estadisticas_controller.mostrar_dashboard()
 
-@app.route('/predicciones', methods=["GET"])
-def formulario_prediccion():
-    return regresion_controller.mostrar_formulario_prediccion()
-
-@app.route('/predicciones', methods=["POST"])
+@app.route("/predicciones", methods=["GET", "POST"])
 def predicciones():
-    return regresion_controller.procesar_prediccion()
+    if request.method == "POST":
+        return regresion_controller.procesar_prediccion()
+    return render_template("predicciones.html") 
+
 
 @app.route('/estadisticas')
 def estadisticas():
