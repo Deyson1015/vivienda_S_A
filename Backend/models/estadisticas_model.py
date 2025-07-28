@@ -1,6 +1,6 @@
-from Backend.models.base_model import BaseModel
+from Backend.models.vivienda_model import ViviendaModel
 from config.config import COLLECTION_NAME
 
-class EstadisticasViviendaModel(BaseModel):
+class EstadisticasViviendaModel(ViviendaModel):
     def __init__(self):
         super().__init__(COLLECTION_NAME)

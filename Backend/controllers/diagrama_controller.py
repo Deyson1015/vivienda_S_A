@@ -5,6 +5,8 @@ import matplotlib.ticker as mtick
 import matplotlib
 matplotlib.use('Agg')
 import seaborn as sns
+from flask import render_template
+from flask import url_for
 
 from Backend.models.regresion_model import RegresionModel
 from Backend.controllers.dataset_controller import DatasetController
@@ -46,9 +48,11 @@ class DiagramaController:
         plt.xlabel("Precio por metro cuadrado")
         plt.ylabel("Precio total de la vivienda")
         plt.grid(True)
-        plt.legend(title="Tipo de Vivienda")
-
+        plt.legend(loc='upper left', bbox_to_anchor=(1, 1), title="Tipo de Vivienda")
+        
         plt.tight_layout()
         plt.savefig(IMAGENS_PATH, format='png')
         plt.close()
+        ruta = url_for('static', filename='img/dispersion_vivienda.png')
+        return render_template('grafico.html', imagen=ruta) 
         print("Diagrama generado y guardado correctamente.")

@@ -14,4 +14,4 @@ class FileUtil:
                 os.makedirs(carpeta, exist_ok=True)
                 print(f"✅ Carpeta creada o ya existente: {carpeta}")
             except Exception as e:
-                print(f"❌ Error al crear carpeta '{carpeta}': {e}")
+                print(f"Error al crear carpeta '{carpeta}': {e}")
