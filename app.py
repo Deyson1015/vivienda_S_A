@@ -26,7 +26,6 @@ dataset_controller.insertar_viviendas()
 
 # Inicializar controlador de estadísticas
 estadisticas_controller = EstadisticasController()
-estadisticas_controller.mostrar_resumen()
 
 regresion_controller = RegresionController()
 
