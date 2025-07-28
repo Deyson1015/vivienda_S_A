@@ -29,12 +29,26 @@ dataset_controller.insertar_viviendas()
 estadisticas_controller = EstadisticasController()
 estadisticas_controller.mostrar_resumen()
 
+regresion_controller = RegresionController()
+
 # Crear la aplicación Flask
 app = Flask(__name__, template_folder='Frontend/templates', static_folder='Frontend/static')
 
 @app.route('/')
 def inicio():
+    return render_template('home.html')
+
+@app.route('/dashboard')
+def dashboard():
     return estadisticas_controller.mostrar_dashboard()
+
+@app.route('/predicciones', methods=["GET"])
+def formulario_prediccion():
+    return regresion_controller.mostrar_formulario_prediccion()
+
+@app.route('/predicciones', methods=["POST"])
+def predicciones():
+    return regresion_controller.procesar_prediccion()
 
 @app.route('/estadisticas')
 def estadisticas():
