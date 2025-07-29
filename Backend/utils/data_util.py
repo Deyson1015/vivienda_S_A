@@ -30,28 +30,7 @@ class DataUtil:
         df["nombre"] = df["id_tipo_vivienda"].astype(str).map(tipo_dict)
 
         return df
-    
-    @staticmethod
-    def resumir_estadisticas(df, modelo_regresion):
-        if df is None or df.empty:
-            print("No hay datos disponibles para generar estadísticas.")
-            return
-
-        # Métricas básicas
-        total_viviendas = len(df)
-        promedio_precio_m2 = df["precio_m2"].mean()
-
-        # Clasificación por tipo de vivienda
-        clasificacion = df["tipo"].value_counts().reset_index()
-        clasificacion.columns = ["Tipo de Vivienda", "Cantidad"]
-
-        # Mostrar el resumen
-        print("\n📊 RESUMEN ESTADÍSTICO")
-        print(f"🏠 Total de viviendas registradas: {total_viviendas}")
-        print(f"💰 Promedio del precio por metro cuadrado: ${promedio_precio_m2:,.2f}")
-        print("\n📌 Clasificación por tipo de vivienda:")
-        print(tabulate(clasificacion, headers="keys", tablefmt="grid"))
-        
+      
     @staticmethod
     def generar_estadisticas(df, modo='resumen'):
         if df is None:
