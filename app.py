@@ -60,5 +60,29 @@ def grafica():
     diagrama = DiagramaController()
     return diagrama.generar_diagrama()
 
+@app.errorhandler(404)
+def not_found_error(e):
+    return render_template("errores.html", error_code=404,
+                           error_title="Página no encontrada",
+                           error_message="La página que buscas no existe o fue eliminada."), 404
+
+@app.errorhandler(500)
+def internal_error(e):
+    return render_template("errores.html", error_code=500,
+                           error_title="Error interno del servidor",
+                           error_message="Ocurrió un error inesperado en el servidor."), 500
+
+@app.errorhandler(403)
+def forbidden_error(e):
+    return render_template("errores.html", error_code=403,
+                           error_title="Acceso denegado",
+                           error_message="No tienes permisos para acceder a esta página."), 403
+
+@app.errorhandler(504)
+def timeout_error(e):
+    return render_template("errores.html", error_code=504,
+                           error_title="Tiempo de espera agotado",
+                           error_message="El servidor tardó demasiado en responder."), 504
+
 if __name__ == '__main__':
     app.run(debug=True)
